@@ -27,6 +27,6 @@ module.exports = {
         '@typescript-eslint/no-extra-non-null-assertion': 'off',
         'react/no-deprecated': 'warn',
         'react/prop-types': 'off',
-        'react/no-unescaped-entities': 'off'
+        'react/no-unescaped-entities': 'off',
     },
 };
