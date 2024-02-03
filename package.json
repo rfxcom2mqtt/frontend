@@ -1,7 +1,7 @@
 {
-  "name": "rfxcom2mqtt-front",
+  "name": "rfxcom2mqtt-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -35,8 +35,9 @@
     "gzip": "react-scripts build && compress-cra",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:eslint": "eslint \"./src/**/*.{js,jsx,tsx}\"",
-    "test:pretty": "prettier --check \"./**/*.{js,jsx,tsx}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
+    "pretty:check": "prettier --check \"./**/*.{js,jsx,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [
@@ -57,15 +58,14 @@
     ]
   },
   "devDependencies": {
+    "compress-create-react-app": "^1.4.4",
     "@typescript-eslint/eslint-plugin": "~6.7.4",
     "@typescript-eslint/parser": "~6.7.4",
-    "compress-create-react-app": "^1.4.4",
     "eslint": "~8.50.0",
     "eslint-config-prettier": "~9.0.0",
-    "eslint-config-react": "~1.1.7",
     "eslint-plugin-prettier": "~5.0.0",
-    "eslint-plugin-react": "~7.33.2",
     "prettier": "~3.0.3"
   },
+  "main": "index.js",
   "proxy": "http://localhost:8889"
 }

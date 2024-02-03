@@ -1,0 +1,8 @@
+**
+!index.js
+!CHANGELOG.md
+!build/**/*
+dist/report.html
+*.map
+*.map.gz
+.DS_Store
