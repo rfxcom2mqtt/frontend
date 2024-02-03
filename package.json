@@ -34,7 +34,9 @@
     "build": "react-scripts build",
     "gzip": "react-scripts build && compress-cra",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:eslint": "eslint \"./src/**/*.{js,jsx,tsx}\"",
+    "test:pretty": "prettier --check \"./**/*.{js,jsx,tsx}\""
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +57,15 @@
     ]
   },
   "devDependencies": {
-    "compress-create-react-app": "^1.4.4"
+    "@typescript-eslint/eslint-plugin": "~6.7.4",
+    "@typescript-eslint/parser": "~6.7.4",
+    "compress-create-react-app": "^1.4.4",
+    "eslint": "~8.50.0",
+    "eslint-config-prettier": "~9.0.0",
+    "eslint-config-react": "~1.1.7",
+    "eslint-plugin-prettier": "~5.0.0",
+    "eslint-plugin-react": "~7.33.2",
+    "prettier": "~3.0.3"
   },
   "proxy": "http://localhost:8889"
 }

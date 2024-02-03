@@ -21,6 +21,5 @@ export class SettingsApi{
   
 }  
 
-
-let settingsApi =  new SettingsApi();
+const settingsApi =  new SettingsApi();
 export default settingsApi;

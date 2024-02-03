@@ -16,5 +16,5 @@ export class DeviceApi{
 }  
 
 
-let deviceApi =  new DeviceApi();
+const deviceApi = new DeviceApi();
 export default deviceApi;

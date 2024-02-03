@@ -77,10 +77,10 @@ function DevicesPage(){
   }, []);
 
   React.useEffect(() => {
-      let newRow : DeviceRow[] = [];
+      const newRow : DeviceRow[] = [];
       let index = 1;
-      for (var key in devicesState) {
-        let row =  new DeviceRow();
+      for (const key in devicesState) {
+        const row =  new DeviceRow();
         row.name = key;
         row.subtype = devicesState[key]['type'];
         row.type = devicesState[key]['type'];
