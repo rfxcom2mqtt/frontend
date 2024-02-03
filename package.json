@@ -1,7 +1,7 @@
 {
   "name": "rfxcom2mqtt-front",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.0-dev-1",
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
