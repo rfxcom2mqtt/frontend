@@ -25,6 +25,8 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-extra-non-null-assertion': 'off',
+        '@typescript-eslint/no-inferrable-types': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         'react/no-deprecated': 'warn',
         'react/prop-types': 'off',
         'react/no-unescaped-entities': 'off',

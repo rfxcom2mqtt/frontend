@@ -1,6 +1,6 @@
 {
   "name": "@rfxcom2mqtt/frontend",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -74,7 +74,7 @@
   },
   "main": "index.js",
   "proxy": "http://localhost:8890",
-  "description": "\"http-proxy-middleware\": \"^2.0.6\",     \"react-bootstrap\": \"^2.10.0\",     \"react-router-dom\": \"^6.21.3\",     \"styled-components\": \"^6.1.8\",",
+  "description": "RFXCOM to MQTT bridge for RFXtrx433 devices",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rfxcom2mqtt/frontend.git"
@@ -90,5 +90,5 @@
   "bugs": {
     "url": "https://github.com/rfxcom2mqtt/frontend/issues"
   },
-  "homepage": ""
+  "homepage": "."
 }
