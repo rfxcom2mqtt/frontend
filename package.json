@@ -1,6 +1,6 @@
 {
-  "name": "rfxcom2mqtt-frontend",
-  "version": "0.1.0",
+  "name": "@rfxcom2mqtt/frontend",
+  "version": "0.1.2",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -35,15 +35,21 @@
     "gzip": "react-scripts build && compress-cra",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx}\"",
-    "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "pretty:check": "prettier --check \"./**/*.{js,jsx,ts,tsx}\""
+    "pretty": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "pretty:check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx}\""
   },
+  "eslintIgnore": [
+    "build/*"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "engines": {
+    "node": ">=18"
   },
   "browserslist": {
     "production": [
@@ -67,5 +73,22 @@
     "prettier": "~3.0.3"
   },
   "main": "index.js",
-  "proxy": "http://localhost:8889"
+  "proxy": "http://localhost:8890",
+  "description": "\"http-proxy-middleware\": \"^2.0.6\",     \"react-bootstrap\": \"^2.10.0\",     \"react-router-dom\": \"^6.21.3\",     \"styled-components\": \"^6.1.8\",",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rfxcom2mqtt/frontend.git"
+  },
+  "keywords": [
+    "rfxcom",
+    "mqtt",
+    "homeassistant",
+    "discovery"
+  ],
+  "author": "sguernion",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/rfxcom2mqtt/frontend/issues"
+  },
+  "homepage": ""
 }
