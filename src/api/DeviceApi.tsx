@@ -5,12 +5,12 @@ axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 export class DeviceApi {
     getDevicesStates(): Promise<AxiosResponse<any>> {
         console.log('get devices status');
-        return axios.get('/api/devices');
+        return axios.get('/devices');
     }
 
     getDeviceState(deviceId: string): Promise<AxiosResponse<any>> {
         console.log('get device status : ' + deviceId);
-        return axios.get('/api/devices/' + deviceId);
+        return axios.get('/devices/' + deviceId);
     }
 }
 

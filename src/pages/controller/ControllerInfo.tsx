@@ -6,13 +6,16 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import request from "../../utils/request";
 
 function ControllerInfoPage() {
     const [controllerInfo, setControllerInfo] = React.useState<BridgeInfo>();
 
     React.useEffect(() => {
-        axios.get('/api/bridge/info').then((response) => {
-            setControllerInfo(response.data);
+        request(`/bridge/info`, { method: "GET" }).then((response) => {
+            setControllerInfo(response);
         });
     }, []);
 
@@ -79,6 +82,9 @@ function ControllerInfoPage() {
                     </Grid>
                 </CardContent>
             </Card>
+            <ButtonGroup variant="contained" aria-label="Basic button group">
+                <Button color="warning">Restart</Button>
+            </ButtonGroup>
         </Box>
     );
 }

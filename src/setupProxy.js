@@ -4,8 +4,10 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://localhost:8890',
+            target: process.env.REACT_APP_PROXY_TARGET,
+            ignorePath: false,
             changeOrigin: true,
+            secure: false,
         }),
     );
 };

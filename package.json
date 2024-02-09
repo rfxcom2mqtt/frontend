@@ -73,7 +73,6 @@
     "prettier": "~3.0.3"
   },
   "main": "index.js",
-  "proxy": "http://localhost:8890",
   "description": "RFXCOM to MQTT bridge for RFXtrx433 devices",
   "repository": {
     "type": "git",
