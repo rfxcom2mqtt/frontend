@@ -1,16 +1,20 @@
-import axios, { AxiosResponse } from 'axios';
-
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+import request from '../utils/request';
+import { DeviceInfo, KeyValue } from '../models/shared';
 
 export class DeviceApi {
-    getDevicesStates(): Promise<AxiosResponse<any>> {
-        console.log('get devices status');
-        return axios.get('/devices');
+    getDevices(): Promise<{ [s: string | number]: DeviceInfo }> {
+        console.log('get devices');
+        return request(`/devices`, { method: 'GET' });
     }
 
-    getDeviceState(deviceId: string): Promise<AxiosResponse<any>> {
-        console.log('get device status : ' + deviceId);
-        return axios.get('/devices/' + deviceId);
+    getDevice(deviceId: string): Promise<DeviceInfo> {
+        console.log('get device : ' + deviceId);
+        return request('/devices/' + deviceId, { method: 'GET' });
+    }
+
+    getDeviceState(deviceId: string): Promise<KeyValue> {
+        console.log('get device state : ' + deviceId);
+        return request('/devices/' + deviceId + '/state', { method: 'GET' });
     }
 }
 

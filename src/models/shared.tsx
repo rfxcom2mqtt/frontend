@@ -97,17 +97,15 @@ export class BridgeInfo {
     logLevel: string = '';
 }
 
-
-  
-export class DeviceState  {
-    manufacturer: string = "Rfxcom";
-    via_device: string = "rfxcom2mqtt_bridge";
+export class DeviceInfo {
+    manufacturer: string = 'Rfxcom';
+    via_device: string = 'rfxcom2mqtt_bridge';
     identifiers: string[] = [];
-    name: string = "";
-    id: string = "";
-    type: string = "";
+    name: string = '';
+    id: string = '';
+    type: string = '';
     subtype: number = 0;
-    subTypeValue: string = "";
+    subTypeValue: string = '';
     entities: string[] = [];
     sensors: string[] = [];
     switchs: string[] = [];

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from 'axios';
 import { BridgeInfo } from '../../models/shared';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -8,16 +7,21 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import request from "../../utils/request";
+
+import controllerApi from '../../api/ControllerApi';
 
 function ControllerInfoPage() {
     const [controllerInfo, setControllerInfo] = React.useState<BridgeInfo>();
 
     React.useEffect(() => {
-        request(`/bridge/info`, { method: "GET" }).then((response) => {
+        controllerApi.getInfo().then((response) => {
             setControllerInfo(response);
         });
     }, []);
+
+    const restartController = () => {
+        controllerApi.sendAction('restart').then((response) => {});
+    };
 
     return (
         <Box component="span" sx={{ display: 'inline-block', transform: 'scale(0.8)' }}>
@@ -83,7 +87,9 @@ function ControllerInfoPage() {
                 </CardContent>
             </Card>
             <ButtonGroup variant="contained" aria-label="Basic button group">
-                <Button color="warning">Restart</Button>
+                <Button color="warning" onClick={restartController}>
+                    Restart
+                </Button>
             </ButtonGroup>
         </Box>
     );

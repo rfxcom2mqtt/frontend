@@ -18,9 +18,12 @@ function DevicePage() {
     const [device, setDevice] = React.useState<DeviceState>();
 
     React.useEffect(() => {
-        console.log('get device :'+id);
+        console.log('get device :' + id);
         deviceApi.getDeviceState(id!!).then((response) => {
-            setDevice(response.data as DeviceState);
+            setDeviceState(response);
+        });
+        deviceApi.getDevice(id!!).then((response) => {
+            setDevice(response);
         });
     }, []);
 

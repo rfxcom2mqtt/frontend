@@ -39,7 +39,7 @@ function SettingsPage() {
 
     const getSettings = () => {
         settingsApi.getSettings().then((response) => {
-            setSettings(response.data as Settings);
+            setSettings(response);
         });
     };
 

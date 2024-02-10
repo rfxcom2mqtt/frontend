@@ -1,12 +1,11 @@
 import React from 'react';
-import { DataGrid, GridColDef,GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { KeyValue } from '../../models/shared';
 import { useNavigate } from 'react-router-dom';
 
 import deviceApi from '../../api/DeviceApi';
-
 
 class DeviceRow {
     id: string = '';
@@ -26,8 +25,8 @@ function DevicesPage() {
 
     React.useEffect(() => {
         console.log('get devices status');
-        deviceApi.getDevicesStates().then((response) => {
-            setDevicesState(response.data as { [s: string | number]: KeyValue });
+        deviceApi.getDevices().then((response) => {
+            setDevicesState(response);
         });
     }, []);
 
@@ -50,14 +49,21 @@ function DevicesPage() {
     }, [devicesState]);
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 90 ,},
+        { field: 'id', headerName: 'ID', width: 90 },
         {
             field: 'device',
             headerName: 'Device',
             width: 300,
             editable: false,
-            renderCell: (params:GridRenderCellParams<any, string>) => (
-                <Button  key={params.value} onClick={() => navigate("/devices/"+params.value)} sx={{ my: 2, display: 'block' }} > {params.value}</Button>
+            renderCell: (params: GridRenderCellParams<any, string>) => (
+                <Button
+                    key={params.value}
+                    onClick={() => navigate('/devices/' + params.value)}
+                    sx={{ my: 2, display: 'block' }}
+                >
+                    {' '}
+                    {params.value}
+                </Button>
             ),
         },
         {
@@ -85,8 +91,6 @@ function DevicesPage() {
             editable: false,
         },
     ];
-
-
 
     return (
         <Box sx={{ height: 700, width: '100%' }}>

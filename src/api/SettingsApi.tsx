@@ -1,18 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
 import { Settings } from '../models/shared';
-
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+import request from '../utils/request';
 
 export class SettingsApi {
-    getSettings(): Promise<AxiosResponse<any>> {
+    getSettings(): Promise<Settings> {
         console.log('get settings');
-        return axios.get('/settings');
+        return request(`/settings`, { method: 'GET' });
     }
 
-    updateSettings(settings: Settings): Promise<AxiosResponse<any>> {
+    updateSettings(settings: Settings): Promise<Settings> {
         console.log('update settings');
-        //TODO call api
-        return axios.get('/settings');
+        return request(`/settings`, { method: 'POST', data: settings });
     }
 }
 
