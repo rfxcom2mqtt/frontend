@@ -97,6 +97,29 @@ export class BridgeInfo {
     logLevel: string = '';
 }
 
+export class DeviceSensor {
+    constructor(
+        public id: string = '',
+        public label: string = '',
+        public description: string = '',
+        public property: string = '',
+        public type: string = '',
+        public unit: string = '',
+    ) {}
+}
+
+export class DeviceSwitch {
+    constructor(
+        public id: string = '',
+        public label: string = '',
+        public description: string = 'On/off state of the switch',
+        public property: string = 'command',
+        public type: string = 'binary',
+        public value_off: string = 'Off',
+        public value_on: string = 'On',
+    ) {}
+}
+
 export class DeviceInfo {
     manufacturer: string = 'Rfxcom';
     via_device: string = 'rfxcom2mqtt_bridge';
@@ -107,6 +130,6 @@ export class DeviceInfo {
     subtype: number = 0;
     subTypeValue: string = '';
     entities: string[] = [];
-    sensors: string[] = [];
-    switchs: string[] = [];
+    sensors: { [s: string]: DeviceSensor } = {};
+    switchs: { [s: string]: DeviceSwitch } = {};
 }

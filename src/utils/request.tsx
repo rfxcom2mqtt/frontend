@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-axios.defaults.baseURL = `/rfxcom/api`;
+axios.defaults.baseURL = `/api`;
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 /**

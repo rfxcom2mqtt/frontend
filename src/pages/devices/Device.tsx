@@ -14,12 +14,15 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
+import Sensor from '../../components/device/Sensor';
+import SwitchItem from '../../components/device/Switch';
+
 import deviceApi from '../../api/DeviceApi';
 
 function DevicePage() {
     const { id } = useParams();
     const [device, setDevice] = React.useState<DeviceInfo>();
-    const [state, setDeviceState] = React.useState<KeyValue>();
+    const [state, setDeviceState] = React.useState<KeyValue[]>();
     const [tabValue, setTabValue] = React.useState<string>('1');
 
     React.useEffect(() => {
@@ -46,7 +49,7 @@ function DevicePage() {
                     <Tab label="State" value="3" />
                 </TabList>
                 <TabPanel value="1">
-                    <Card sx={{ width: '100%', }}>
+                    <Card sx={{ width: '100%' }}>
                         <CardContent>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
@@ -84,7 +87,7 @@ function DevicePage() {
                     </Card>
                 </TabPanel>
                 <TabPanel value="2">
-                    <Card sx={{ width: '100%'}}>
+                    <Card sx={{ width: '100%' }}>
                         <CardContent>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
@@ -101,36 +104,36 @@ function DevicePage() {
                                         })}
                                     </List>
                                 </Grid>
-                                {device?.sensors !== undefined && device?.sensors.length > 0 && (
+                                {device?.sensors !== undefined && state !== undefined && (
                                     <>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12}>
                                             <FormLabel>Home assistant sensors</FormLabel>{' '}
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12}>
                                             <List dense={true}>
-                                                {device?.sensors?.map((value) => {
+                                                {Object.keys(device?.sensors).map((key, index) => {
                                                     return (
-                                                        <ListItem key={value}>
-                                                            <ListItemText primary={value} />
-                                                        </ListItem>
+                                                        <Sensor key={key} sensor={device?.sensors[key]} value={state} />
                                                     );
                                                 })}
                                             </List>
                                         </Grid>
                                     </>
                                 )}
-                                {device?.switchs !== undefined && device?.switchs.length > 0 && (
+                                {device?.switchs !== undefined && state !== undefined && (
                                     <>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12}>
                                             <FormLabel>Home assistant switchs</FormLabel>{' '}
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12}>
                                             <List dense={true}>
-                                                {device?.switchs?.map((value) => {
+                                                {Object.keys(device?.switchs).map((key, index) => {
                                                     return (
-                                                        <ListItem key={value}>
-                                                            <ListItemText primary={value} />
-                                                        </ListItem>
+                                                        <SwitchItem
+                                                            key={key}
+                                                            item={device?.switchs[key]}
+                                                            value={state}
+                                                        />
                                                     );
                                                 })}
                                             </List>
@@ -142,13 +145,11 @@ function DevicePage() {
                     </Card>
                 </TabPanel>
                 <TabPanel value="3">
-                    <Card sx={{ width: '100%'}}>
+                    <Card sx={{ width: '100%' }}>
                         <CardContent>
-                            <pre>
-                            { JSON.stringify(state, null, 2) }
-                            </pre>
+                            <pre>{JSON.stringify(state, null, 2)}</pre>
                         </CardContent>
-                    </Card> 
+                    </Card>
                 </TabPanel>
             </TabContext>
         </Box>

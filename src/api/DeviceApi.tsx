@@ -12,7 +12,7 @@ export class DeviceApi {
         return request('/devices/' + deviceId, { method: 'GET' });
     }
 
-    getDeviceState(deviceId: string): Promise<KeyValue> {
+    getDeviceState(deviceId: string): Promise<KeyValue[]> {
         console.log('get device state : ' + deviceId);
         return request('/devices/' + deviceId + '/state', { method: 'GET' });
     }
