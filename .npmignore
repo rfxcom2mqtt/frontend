@@ -1,0 +1,6 @@
+**
+!index.js
+!CHANGELOG.md
+!build/**/*
+*.map
+*.map.gz
