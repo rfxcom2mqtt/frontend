@@ -32,7 +32,7 @@ function Sensor(props: SensorProps) {
         for (const entity in props.value) {
             console.log('get value for : ' + id);
             console.log('get value : ' + props.value[entity].id);
-            if (props.value[entity].id === id) {
+            if (props.value[entity].entityId === id) {
                 console.log('get value for id : ' + id + '' + props.value[entity][property]);
                 value = props.value[entity][property];
                 found = true;
