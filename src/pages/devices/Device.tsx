@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DeviceInfo, KeyValue } from '../../models/shared';
+import { DeviceInfo, KeyValue, DeviceSwitch } from '../../models/shared';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -38,6 +38,21 @@ function DevicePage() {
     const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
         setTabValue(newValue);
     };
+
+    const handleSwitchAction = (entity: DeviceSwitch, action: string) => {
+        console.log("send action "+entity.id+" "+action);
+        deviceApi.deviceAction(id!!,entity.id,action).then((response) => {
+            console.log("sended action "+entity.id+" "+action);
+            for (const item in state!!) {
+                if (state[item].entityId === id) {
+                    state[item][entity.property] = action;
+                }
+            }
+            setDeviceState(state);
+        });
+    };
+
+    
 
     return (
         <Box component="span" sx={{ width: '100%' }}>
@@ -133,6 +148,7 @@ function DevicePage() {
                                                             key={key}
                                                             item={device?.switchs[key]}
                                                             value={state}
+                                                            action={handleSwitchAction}
                                                         />
                                                     );
                                                 })}

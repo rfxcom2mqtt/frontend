@@ -10,6 +10,7 @@ import { DeviceSwitch, KeyValue } from '../../models/shared';
 interface SwitchProps {
     item: DeviceSwitch;
     value: KeyValue[];
+    action: any;
 }
 
 function SwitchItem(props: SwitchProps) {
@@ -26,8 +27,8 @@ function SwitchItem(props: SwitchProps) {
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.checked);
         setValue(event.target.checked);
+        props.action(item,event.target.checked?item.value_on:item.value_off);
     };
 
     const getValue = (props: SwitchProps) => {
@@ -55,7 +56,7 @@ function SwitchItem(props: SwitchProps) {
                     <CardHeader title={item.label} subheader={item.description} sx={{ mb: 3 }} />
                 </Grid>
                 <Grid item xs={6}>
-                    <FormLabel style={styles.value}> {getValue(props)} <Switch checked={value} onChange={handleChange} /></FormLabel>
+                    <FormLabel style={styles.value}><Switch checked={value} onChange={handleChange} /></FormLabel>
                 </Grid>
             </Grid>
             <Divider />

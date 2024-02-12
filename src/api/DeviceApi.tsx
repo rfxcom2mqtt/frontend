@@ -16,6 +16,11 @@ export class DeviceApi {
         console.log('get device state : ' + deviceId);
         return request('/devices/' + deviceId + '/state', { method: 'GET' });
     }
+
+    deviceAction(deviceId: string,entityId: string,action: string): Promise<any> {
+        console.log('send device '+deviceId+'action : ' + action);
+        return request('/devices/' + deviceId + '/action', { method: 'POST', data: { action: action, entityId: entityId } });
+    }
 }
 
 const deviceApi = new DeviceApi();
