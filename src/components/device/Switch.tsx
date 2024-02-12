@@ -14,6 +14,7 @@ interface SwitchProps {
 
 function SwitchItem(props: SwitchProps) {
     const item = props.item;
+   
     const styles = {
         value: {
             display: 'flex',
@@ -24,16 +25,18 @@ function SwitchItem(props: SwitchProps) {
         },
     };
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.checked);
+        setValue(event.target.checked);
+    };
+
     const getValue = (props: SwitchProps) => {
         const property = props.item.property;
         const id = props.item.id;
         let value;
         let found = false;
         for (const entity in props.value) {
-            console.log('get value for : ' + id);
-            console.log('get value : ' + props.value[entity].entityId);
             if (props.value[entity].entityId === id) {
-                console.log('get value for id : ' + id + '' + props.value[entity][property]);
                 value = props.value[entity][property];
                 found = true;
             }
@@ -43,6 +46,7 @@ function SwitchItem(props: SwitchProps) {
         }
         return value;
     };
+    const [value, setValue] = React.useState<boolean>(getValue(props) === item.value_on);
 
     return (
         <>
@@ -51,7 +55,7 @@ function SwitchItem(props: SwitchProps) {
                     <CardHeader title={item.label} subheader={item.description} sx={{ mb: 3 }} />
                 </Grid>
                 <Grid item xs={6}>
-                    <FormLabel style={styles.value}> {getValue(props)}</FormLabel>
+                    <FormLabel style={styles.value}> {getValue(props)} <Switch checked={value} onChange={handleChange} /></FormLabel>
                 </Grid>
             </Grid>
             <Divider />
