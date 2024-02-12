@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,11 +16,17 @@ import Switch from '@mui/material/Switch';
 import { Settings, SettingMqtt, SettingFrontend, SettingHass, SettingRfxcom } from '../../models/shared';
 import SettingRfxcomEditor from '../../components/settings/SettingRfxcomEditor';
 import settingsApi from '../../api/SettingsApi';
+import PasswordField from '../../components/PasswordField';
 
 function SettingsPage() {
     const frontendEnabledlabel = { inputProps: { 'aria-label': 'Enable' } };
     const discoveryEnabledlabel = { inputProps: { 'aria-label': 'Enable Discovery' } };
     const [settings, setSettings] = React.useState<Settings>();
+    const [tabValue, setTabValue] = React.useState<string>('1');
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+        setTabValue(newValue);
+    };
 
     const handleRfxcomChange = (rfxcom: SettingRfxcom) => {
         setSettings({ ...settings!!, rfxcom: rfxcom });
@@ -51,25 +57,20 @@ function SettingsPage() {
         <div>
             {settings !== undefined && (
                 <>
-                    <Accordion defaultExpanded>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="rfxcom-content"
-                            id="rfxcom-header"
-                        >
-                            Rfxcom
-                        </AccordionSummary>
-                        <AccordionDetails>
+                    <TabContext value={tabValue}>
+                        <TabList onChange={handleTabChange}>
+                            <Tab label="Rfxcom" value="1" />
+                            <Tab label="Mqtt" value="2" />
+                            <Tab label="Frontend" value="3" />
+                            <Tab label="Homeassistant" value="4" />
+                            <Tab label="Advanced" value="5" />
+                        </TabList>
+                        <TabPanel value="1">
                             {settings !== undefined && (
                                 <SettingRfxcomEditor settings={settings!!.rfxcom} handleChange={handleRfxcomChange} />
                             )}
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="mqtt-content" id="mqtt-header">
-                            Mqtt
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </TabPanel>
+                        <TabPanel value="2">
                             <FormGroup>
                                 <FormLabel>Base topic : </FormLabel>
                                 <TextField
@@ -124,9 +125,8 @@ function SettingsPage() {
                                 />
                                 <FormHelperText>MQTT server authentication user</FormHelperText>
                                 <FormLabel>Password : </FormLabel>
-                                <TextField
+                                <PasswordField
                                     id="mqtt-password"
-                                    variant="outlined"
                                     value={settings?.mqtt.password}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                         setSettings({
@@ -194,17 +194,8 @@ function SettingsPage() {
                                 />
                                 <FormHelperText>MQTT keepalive in second</FormHelperText>
                             </FormGroup>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="frontend-content"
-                            id="frontend-header"
-                        >
-                            Frontend
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </TabPanel>
+                        <TabPanel value="3">
                             <FormGroup>
                                 <FormLabel>Enable : </FormLabel>
                                 <Switch
@@ -301,17 +292,8 @@ function SettingsPage() {
                                     </FormHelperText>
                                 </FormGroup>
                             )}
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="homeassistant-content"
-                            id="homeassistant-header"
-                        >
-                            Homeassistant
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </TabPanel>
+                        <TabPanel value="4">
                             <FormGroup>
                                 <FormLabel>Enable Discovery: </FormLabel>
                                 <Switch
@@ -365,17 +347,8 @@ function SettingsPage() {
                                     <FormHelperText>Home Assistant discovery device prefix</FormHelperText>
                                 </FormGroup>
                             )}
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="advanced-content"
-                            id="advanced-header"
-                        >
-                            Advanced
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </TabPanel>
+                        <TabPanel value="5">
                             <FormGroup>
                                 <Select
                                     value={settings?.loglevel}
@@ -390,12 +363,10 @@ function SettingsPage() {
                                     <MenuItem value="error">ERROR</MenuItem>
                                 </Select>
                             </FormGroup>
-                        </AccordionDetails>
-                    </Accordion>
-                    <AccordionActions>
-                        <Button onClick={cancel}>Cancel</Button>
-                        <Button onClick={save}>Save</Button>
-                    </AccordionActions>
+                        </TabPanel>
+                    </TabContext>
+                    <Button onClick={cancel}>Cancel</Button>
+                    <Button onClick={save}>Save</Button>
                 </>
             )}
         </div>
