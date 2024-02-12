@@ -7,11 +7,12 @@ import DevicePage from './pages/devices/Device';
 import JournalsPage from './pages/journals/Journals';
 import ControllerInfoPage from './pages/controller/ControllerInfo';
 import Header from './components/Header';
+import config from './utils/config';
 
 function App() {
     return (
         <>
-            <BrowserRouter>
+            <BrowserRouter basename={config.basePath}>
                 <Header />
                 <Routes>
                     <Route path="/" element={<ControllerInfoPage />} />
