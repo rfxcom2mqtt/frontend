@@ -1,15 +1,18 @@
 import * as React from 'react';
 
-import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import CardHeader from '@mui/material/CardHeader';
 import { DeviceSensor, KeyValue } from '../../models/shared';
+import { Button } from '@mui/material';
+
+import { Description } from '@mui/icons-material';
 
 interface SensorProps {
     sensor: DeviceSensor;
     value: KeyValue[];
+    renameAction?: any;
 }
 
 function Sensor(props: SensorProps) {
@@ -44,16 +47,22 @@ function Sensor(props: SensorProps) {
         return value;
     };
 
+    const handleRename = () => {
+        props.renameAction(sensor);
+    };
+
     return (
         <>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <CardHeader title={sensor.label} subheader={sensor.description} sx={{ mb: 3 }} />
+                    <CardHeader title={sensor.label} subheader={sensor.description} sx={{ mb: 3 }} 
+                       avatar={props.renameAction !== undefined && (<Button onClick={handleRename}> <Description /></Button>)}
+                    />
                 </Grid>
                 <Grid item xs={6}>
                     <FormLabel style={styles.value}>
                         {' '}
-                        {getValue(props)} {sensor.unit}
+                        {getValue(props)} {sensor.unit_of_measurement}
                     </FormLabel>
                 </Grid>
             </Grid>

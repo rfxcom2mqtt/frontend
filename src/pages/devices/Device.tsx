@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DeviceInfo, KeyValue, DeviceSwitch } from '../../models/shared';
+import { DeviceInfo, KeyValue, DeviceSwitch,DeviceSensor } from '../../models/shared';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -13,9 +13,16 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { Button } from '@mui/material';
+
+import { Description } from '@mui/icons-material';
 
 import Sensor from '../../components/device/Sensor';
 import SwitchItem from '../../components/device/Switch';
+import ConfirmationDialogTextfield, {
+    DialogTextfieldState,
+    closedDialogTextfieldState,
+} from '../../components/ConfirmationDialogTextfield';
 
 import deviceApi from '../../api/DeviceApi';
 
@@ -24,6 +31,7 @@ function DevicePage() {
     const [device, setDevice] = React.useState<DeviceInfo>();
     const [state, setDeviceState] = React.useState<KeyValue[]>();
     const [tabValue, setTabValue] = React.useState<string>('1');
+    const [dialogProps, setDialogProps] = React.useState<DialogTextfieldState>(closedDialogTextfieldState);
 
     React.useEffect(() => {
         console.log('get device :' + id);
@@ -40,9 +48,9 @@ function DevicePage() {
     };
 
     const handleSwitchAction = (entity: DeviceSwitch, action: string) => {
-        console.log("send action "+entity.id+" "+action);
-        deviceApi.deviceAction(id!!,entity.id,action).then((response) => {
-            console.log("sended action "+entity.id+" "+action);
+        console.log('send action ' + entity.id + ' ' + action);
+        deviceApi.deviceAction(id!!, entity.id, action).then((response) => {
+            console.log('sended action ' + entity.id + ' ' + action);
             for (const item in state!!) {
                 if (state[item].entityId === id) {
                     state[item][entity.property] = action;
@@ -52,11 +60,57 @@ function DevicePage() {
         });
     };
 
+    const handleSensorRenameAction = (entity: DeviceSensor) => {
+        const action = (name: string) => {
+            deviceApi.updateSensorName(id!!,entity.id,name);
+        };
+        setDialogProps({
+            open: true,
+            action,
+            message: 'rename sensor',
+        });
+    }
+
+    const handleSwitchRenameAction = (entity: DeviceSwitch) => {
+        const action = (name: string) => {
+            deviceApi.updateSwitchName(id!!,entity,name);
+        };
+        setDialogProps({
+            open: true,
+            action,
+            message: 'rename switch',
+        });
+    }
+
+    const handleRenameDevice = () => {
+        const action = (deviceName: string) => {
+            deviceApi.updateDeviceName(id!!, deviceName);
+        };
+        setDialogProps({
+            open: true,
+            action,
+            message: 'rename device',
+        });
+    };
+
     
+
+    const dialogOnContinue = (deviceName: string) => {
+        if (dialogProps.action) {
+          dialogProps.action(deviceName);
+        }
+        setDialogProps({ ...dialogProps, open: false });
+    };
+
+    const dialogOnCancel = () => {
+        setDialogProps({ ...dialogProps, open: false });
+      };
 
     return (
         <Box component="span" sx={{ width: '100%' }}>
-            <h3>Device {device?.name}</h3>
+            <h3>Device {device?.name}<Button onClick={handleRenameDevice}>
+                                        <Description />
+                                    </Button></h3>
             <TabContext value={tabValue}>
                 <TabList onChange={handleTabChange}>
                     <Tab label="Info" value="1" />
@@ -105,6 +159,7 @@ function DevicePage() {
                     <Card sx={{ width: '100%' }}>
                         <CardContent>
                             <Grid container spacing={2}>
+                            {device?.entities !== undefined && device?.entities.length > 1 && (<>
                                 <Grid item xs={6}>
                                     <FormLabel>Entities</FormLabel>{' '}
                                 </Grid>
@@ -118,7 +173,7 @@ function DevicePage() {
                                             );
                                         })}
                                     </List>
-                                </Grid>
+                                </Grid> </>)}
                                 {device?.sensors !== undefined && state !== undefined && (
                                     <>
                                         <Grid item xs={12}>
@@ -149,6 +204,7 @@ function DevicePage() {
                                                             item={device?.switchs[key]}
                                                             value={state}
                                                             action={handleSwitchAction}
+                                                            renameAction={handleSwitchRenameAction}
                                                         />
                                                     );
                                                 })}
@@ -168,6 +224,13 @@ function DevicePage() {
                     </Card>
                 </TabPanel>
             </TabContext>
+
+            <ConfirmationDialogTextfield
+                open={dialogProps.open}
+                onContinue={dialogOnContinue}
+                onCancel={dialogOnCancel}
+                customMessage={dialogProps.message}
+            />
         </Box>
     );
 }

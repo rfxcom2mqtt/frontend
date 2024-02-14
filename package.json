@@ -1,6 +1,6 @@
 {
   "name": "@rfxcom2mqtt/frontend",
-  "version": "0.1.7",
+  "version": "0.1.7-1",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -10,6 +10,7 @@
     "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.15.7",
     "@mui/styled-engine-sc": "^6.0.0-alpha.14",
+    "@mui/styles": "^5.15.10",
     "@mui/x-data-grid": "^6.19.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",

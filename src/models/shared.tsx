@@ -104,7 +104,8 @@ export class DeviceSensor {
         public description: string = '',
         public property: string = '',
         public type: string = '',
-        public unit: string = '',
+        public unit_of_measurement: string = '',
+        public icon = '',
     ) {}
 }
 
@@ -115,6 +116,7 @@ export class DeviceSwitch {
         public description: string = 'On/off state of the switch',
         public property: string = 'command',
         public type: string = 'binary',
+        public unit: string = '',
         public value_off: string = 'Off',
         public value_on: string = 'On',
     ) {}
