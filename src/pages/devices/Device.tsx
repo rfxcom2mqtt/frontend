@@ -35,13 +35,17 @@ function DevicePage() {
 
     React.useEffect(() => {
         console.log('get device :' + id);
+        refresh();
+    }, []);
+
+    const refresh = () => {
         deviceApi.getDeviceState(id!!).then((response) => {
             setDeviceState(response);
         });
         deviceApi.getDevice(id!!).then((response) => {
             setDevice(response);
         });
-    }, []);
+    }
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
         setTabValue(newValue);
@@ -62,7 +66,9 @@ function DevicePage() {
 
     const handleSensorRenameAction = (entity: DeviceSensor) => {
         const action = (name: string) => {
-            deviceApi.updateSensorName(id!!,entity.id,name);
+            deviceApi.updateSensorName(id!!,entity.id,name).then((response) => {
+                refresh();
+            });
         };
         setDialogProps({
             open: true,
@@ -73,7 +79,9 @@ function DevicePage() {
 
     const handleSwitchRenameAction = (entity: DeviceSwitch) => {
         const action = (name: string) => {
-            deviceApi.updateSwitchName(id!!,entity,name);
+            deviceApi.updateSwitchName(id!!,entity,name).then((response) => {
+                refresh();
+            });
         };
         setDialogProps({
             open: true,
@@ -84,7 +92,9 @@ function DevicePage() {
 
     const handleRenameDevice = () => {
         const action = (deviceName: string) => {
-            deviceApi.updateDeviceName(id!!, deviceName);
+            deviceApi.updateDeviceName(id!!, deviceName).then((response) => {
+                refresh();
+            });
         };
         setDialogProps({
             open: true,
@@ -108,7 +118,7 @@ function DevicePage() {
 
     return (
         <Box component="span" sx={{ width: '100%' }}>
-            <h3>Device {device?.name}<Button onClick={handleRenameDevice}>
+            <h3>{device?.name}<Button onClick={handleRenameDevice}>
                                         <Description />
                                     </Button></h3>
             <TabContext value={tabValue}>
@@ -127,6 +137,12 @@ function DevicePage() {
                                 <Grid item xs={6}>
                                     <FormLabel>{device?.name}</FormLabel>
                                 </Grid>
+                                {device?.name !== device?.originalName && (<><Grid item xs={6}>
+                                    <FormLabel>Original name</FormLabel>{' '}
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormLabel>{device?.originalName}</FormLabel>
+                                </Grid></>)}
                                 <Grid item xs={6}>
                                     <FormLabel>Rfxcom Id</FormLabel>{' '}
                                 </Grid>

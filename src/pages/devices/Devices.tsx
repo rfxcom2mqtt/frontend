@@ -4,8 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { KeyValue } from '../../models/shared';
 import { useNavigate } from 'react-router-dom';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 import deviceApi from '../../api/DeviceApi';
+import controllerApi from '../../api/ControllerApi'
 
 class DeviceRow {
     id: string = '';
@@ -24,11 +26,28 @@ function DevicesPage() {
     const [rows, setRows] = React.useState<DeviceRow[]>([]);
 
     React.useEffect(() => {
+        refresh();
+    }, []);
+
+    const refresh = () => {
         console.log('get devices status');
         deviceApi.getDevices().then((response) => {
             setDevicesState(response);
         });
-    }, []);
+    };
+
+
+    const resetState = () => {
+        controllerApi.sendAction('reset_state').then((response) => {
+            refresh();
+        });
+    };
+
+    const resetDevices = () => {
+        controllerApi.sendAction('reset_devices').then((response) => {
+            refresh();
+        });
+    };
 
     React.useEffect(() => {
         const newRow: DeviceRow[] = [];
@@ -110,6 +129,14 @@ function DevicesPage() {
                     disableRowSelectionOnClick
                 />
             )}
+            <ButtonGroup variant="contained" aria-label="Basic button group">
+                <Button color="info" onClick={resetState}>
+                    Reset state
+                </Button>
+                <Button color="info" onClick={resetDevices}>
+                    Reset devices
+                </Button>
+            </ButtonGroup>
         </Box>
     );
 }

@@ -14,6 +14,7 @@ export type Settings = {
         cron: string;
     };
     homeassistant: SettingHass;
+    devices: SettingDevice[];
     mqtt: SettingMqtt;
     rfxcom: SettingRfxcom;
     frontend: SettingFrontend;
@@ -62,13 +63,11 @@ export type SettingRfxcom = {
         lighting4: string[];
     };
     receive: string[];
-    devices: SettingDevice[];
 };
 
 export type SettingDevice = {
     id: string;
     name?: string;
-    friendlyName?: string;
     type?: string;
     subtype?: string;
     units?: Units[];
@@ -100,7 +99,7 @@ export class BridgeInfo {
 export class DeviceSensor {
     constructor(
         public id: string = '',
-        public label: string = '',
+        public name: string = '',
         public description: string = '',
         public property: string = '',
         public type: string = '',
@@ -112,7 +111,7 @@ export class DeviceSensor {
 export class DeviceSwitch {
     constructor(
         public id: string = '',
-        public label: string = '',
+        public name: string = '',
         public description: string = 'On/off state of the switch',
         public property: string = 'command',
         public type: string = 'binary',
@@ -127,6 +126,7 @@ export class DeviceInfo {
     via_device: string = 'rfxcom2mqtt_bridge';
     identifiers: string[] = [];
     name: string = '';
+    originalName?: string;
     id: string = '';
     type: string = '';
     subtype: number = 0;
