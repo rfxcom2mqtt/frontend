@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import Stack from '@mui/material/Stack';
 
 import controllerApi from '../../api/ControllerApi';
 
@@ -86,11 +86,11 @@ function ControllerInfoPage() {
                     </Grid>
                 </CardContent>
             </Card>
-            <ButtonGroup variant="contained" aria-label="Basic button group">
+            <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
                 <Button color="warning" onClick={restartController}>
                     Restart
                 </Button>
-            </ButtonGroup>
+            </Stack>
         </Box>
     );
 }

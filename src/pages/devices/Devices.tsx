@@ -1,13 +1,13 @@
 import React from 'react';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar, GridRenderCellParams } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { KeyValue } from '../../models/shared';
 import { useNavigate } from 'react-router-dom';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import Stack from '@mui/material/Stack';
 
 import deviceApi from '../../api/DeviceApi';
-import controllerApi from '../../api/ControllerApi'
+import controllerApi from '../../api/ControllerApi';
 
 class DeviceRow {
     id: string = '';
@@ -35,7 +35,6 @@ function DevicesPage() {
             setDevicesState(response);
         });
     };
-
 
     const resetState = () => {
         controllerApi.sendAction('reset_state').then((response) => {
@@ -115,6 +114,7 @@ function DevicesPage() {
         <Box sx={{ height: 700, width: '100%' }}>
             {rows.length > 0 && (
                 <DataGrid
+                    autoHeight
                     rows={rows}
                     columns={columns}
                     initialState={{
@@ -125,18 +125,25 @@ function DevicesPage() {
                         },
                     }}
                     pageSizeOptions={[pageSize]}
-                    checkboxSelection
+                    disableColumnSelector
+                    disableDensitySelector
                     disableRowSelectionOnClick
+                    slots={{ toolbar: GridToolbar }}
+                    slotProps={{
+                        toolbar: {
+                            showQuickFilter: true,
+                        },
+                    }}
                 />
             )}
-            <ButtonGroup variant="contained" aria-label="Basic button group">
+            <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
                 <Button color="info" onClick={resetState}>
                     Reset state
                 </Button>
                 <Button color="info" onClick={resetDevices}>
                     Reset devices
                 </Button>
-            </ButtonGroup>
+            </Stack>
         </Box>
     );
 }

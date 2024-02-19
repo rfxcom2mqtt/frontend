@@ -55,8 +55,18 @@ function Sensor(props: SensorProps) {
         <>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <CardHeader title={sensor.name} subheader={sensor.description} sx={{ mb: 3 }} 
-                       avatar={props.renameAction !== undefined && (<Button onClick={handleRename}> <Description /></Button>)}
+                    <CardHeader
+                        title={sensor.name}
+                        subheader={sensor.description}
+                        sx={{ mb: 3 }}
+                        avatar={
+                            props.renameAction !== undefined && (
+                                <Button onClick={handleRename}>
+                                    {' '}
+                                    <Description />
+                                </Button>
+                            )
+                        }
                     />
                 </Grid>
                 <Grid item xs={6}>

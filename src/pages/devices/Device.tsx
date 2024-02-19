@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DeviceInfo, KeyValue, DeviceSwitch,DeviceSensor } from '../../models/shared';
+import { DeviceInfo, KeyValue, DeviceSwitch, DeviceSensor } from '../../models/shared';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -45,7 +45,7 @@ function DevicePage() {
         deviceApi.getDevice(id!!).then((response) => {
             setDevice(response);
         });
-    }
+    };
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
         setTabValue(newValue);
@@ -66,7 +66,7 @@ function DevicePage() {
 
     const handleSensorRenameAction = (entity: DeviceSensor) => {
         const action = (name: string) => {
-            deviceApi.updateSensorName(id!!,entity.id,name).then((response) => {
+            deviceApi.updateSensorName(id!!, entity.id, name).then((response) => {
                 refresh();
             });
         };
@@ -75,11 +75,11 @@ function DevicePage() {
             action,
             message: 'rename sensor',
         });
-    }
+    };
 
     const handleSwitchRenameAction = (entity: DeviceSwitch) => {
         const action = (name: string) => {
-            deviceApi.updateSwitchName(id!!,entity,name).then((response) => {
+            deviceApi.updateSwitchName(id!!, entity, name).then((response) => {
                 refresh();
             });
         };
@@ -88,7 +88,7 @@ function DevicePage() {
             action,
             message: 'rename switch',
         });
-    }
+    };
 
     const handleRenameDevice = () => {
         const action = (deviceName: string) => {
@@ -103,24 +103,25 @@ function DevicePage() {
         });
     };
 
-    
-
     const dialogOnContinue = (deviceName: string) => {
         if (dialogProps.action) {
-          dialogProps.action(deviceName);
+            dialogProps.action(deviceName);
         }
         setDialogProps({ ...dialogProps, open: false });
     };
 
     const dialogOnCancel = () => {
         setDialogProps({ ...dialogProps, open: false });
-      };
+    };
 
     return (
         <Box component="span" sx={{ width: '100%' }}>
-            <h3>{device?.name}<Button onClick={handleRenameDevice}>
-                                        <Description />
-                                    </Button></h3>
+            <h3>
+                {device?.name}
+                <Button onClick={handleRenameDevice}>
+                    <Description />
+                </Button>
+            </h3>
             <TabContext value={tabValue}>
                 <TabList onChange={handleTabChange}>
                     <Tab label="Info" value="1" />
@@ -137,12 +138,16 @@ function DevicePage() {
                                 <Grid item xs={6}>
                                     <FormLabel>{device?.name}</FormLabel>
                                 </Grid>
-                                {device?.name !== device?.originalName && (<><Grid item xs={6}>
-                                    <FormLabel>Original name</FormLabel>{' '}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <FormLabel>{device?.originalName}</FormLabel>
-                                </Grid></>)}
+                                {device?.name !== device?.originalName && (
+                                    <>
+                                        <Grid item xs={6}>
+                                            <FormLabel>Original name</FormLabel>{' '}
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <FormLabel>{device?.originalName}</FormLabel>
+                                        </Grid>
+                                    </>
+                                )}
                                 <Grid item xs={6}>
                                     <FormLabel>Rfxcom Id</FormLabel>{' '}
                                 </Grid>
@@ -175,21 +180,24 @@ function DevicePage() {
                     <Card sx={{ width: '100%' }}>
                         <CardContent>
                             <Grid container spacing={2}>
-                            {device?.entities !== undefined && device?.entities.length > 1 && (<>
-                                <Grid item xs={6}>
-                                    <FormLabel>Entities</FormLabel>{' '}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <List dense={true}>
-                                        {device?.entities?.map((value) => {
-                                            return (
-                                                <ListItem key={value}>
-                                                    <ListItemText primary={value} />
-                                                </ListItem>
-                                            );
-                                        })}
-                                    </List>
-                                </Grid> </>)}
+                                {device?.entities !== undefined && device?.entities.length > 1 && (
+                                    <>
+                                        <Grid item xs={6}>
+                                            <FormLabel>Entities</FormLabel>{' '}
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <List dense={true}>
+                                                {device?.entities?.map((value) => {
+                                                    return (
+                                                        <ListItem key={value}>
+                                                            <ListItemText primary={value} />
+                                                        </ListItem>
+                                                    );
+                                                })}
+                                            </List>
+                                        </Grid>{' '}
+                                    </>
+                                )}
                                 {device?.sensors !== undefined && state !== undefined && (
                                     <>
                                         <Grid item xs={12}>

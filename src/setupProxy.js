@@ -10,4 +10,14 @@ module.exports = function (app) {
             secure: false,
         }),
     );
+
+    app.use(
+        '/socket.io',
+        createProxyMiddleware({
+            target: process.env.REACT_APP_PROXY_TARGET,
+            ignorePath: false,
+            changeOrigin: true,
+            secure: false,
+        }),
+    );
 };

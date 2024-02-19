@@ -1,3 +1,11 @@
+export type WsMessage = {
+    id: string;
+    level: string;
+    label: string;
+    value: string;
+    time: number;
+};
+
 export interface KeyValue {
     [s: string]: any;
 }

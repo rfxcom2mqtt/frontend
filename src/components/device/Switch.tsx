@@ -61,13 +61,23 @@ function SwitchItem(props: SwitchProps) {
         <>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <CardHeader title={item.name} subheader={item.description} sx={{ mb: 3 }} 
-                     avatar={props.renameAction !== undefined && (<Button onClick={handleRename}> <Description /></Button>)}
-                 />
+                    <CardHeader
+                        title={item.name}
+                        subheader={item.description}
+                        sx={{ mb: 3 }}
+                        avatar={
+                            props.renameAction !== undefined && (
+                                <Button onClick={handleRename}>
+                                    {' '}
+                                    <Description />
+                                </Button>
+                            )
+                        }
+                    />
                 </Grid>
                 <Grid item xs={6}>
                     <FormLabel style={styles.value}>
-                       <Switch checked={value} onChange={handleChange} />
+                        <Switch checked={value} onChange={handleChange} />
                     </FormLabel>
                 </Grid>
             </Grid>

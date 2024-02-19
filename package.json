@@ -1,6 +1,6 @@
 {
   "name": "@rfxcom2mqtt/frontend",
-  "version": "0.1.7-2",
+  "version": "0.1.7-6",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.7.4",
     "styled-components": "^6.1.8",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"

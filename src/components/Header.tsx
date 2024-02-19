@@ -17,7 +17,8 @@ import SensorsIcon from '@mui/icons-material/Sensors';
 const pages = [
     { name: 'Informations', path: '/' },
     { name: 'Devices', path: '/devices' },
-    { name: 'Settings', path: '/settings' } /**,{name:'Journals',path:'/logs'}**/,
+    { name: 'Settings', path: '/settings' },
+    { name: 'Journals', path: '/logs' },
 ];
 const settings = ['Logout'];
 
