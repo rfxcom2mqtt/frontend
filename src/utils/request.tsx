@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from './config';
 
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-axios.defaults.baseURL = config.publicPath + '/api';
+axios.defaults.baseURL = config.publicPath + config.basePath + '/api';
 
 /**
  * Requests a URL, returning a promise

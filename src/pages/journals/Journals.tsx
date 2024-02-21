@@ -7,7 +7,10 @@ function JournalsPage() {
     const [socket, setSocket] = useState<Socket | null>(null);
 
     useEffect(() => {
-        const newSocket: Socket = io(config.publicPath, { path: config.basePath+"/socket.io/"});
+        console.log('publicPath : ' + config.publicPath);
+        console.log('basePath : ' + config.basePath);
+        console.log('basePath : ' + config.wsNamespace);
+        const newSocket: Socket = io(config.basePath, { path: config.basePath + '/socket.io' });
         setSocket(newSocket);
         //return () => newSocket.close();
     }, [setSocket]);

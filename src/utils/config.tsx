@@ -1,6 +1,7 @@
 type Config = {
     basePath: string;
     publicPath: string;
+    wsNamespace: string;
 };
 
 const getConfig = (): Config => {
