@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DeviceInfo, KeyValue, DeviceSwitch, DeviceSensor } from '../../models/shared';
+import { DeviceInfo, KeyValue, DeviceSwitch, DeviceSensor, DeviceBinarySensor } from '../../models/shared';
 import { FormLabel } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -17,8 +17,12 @@ import { Button } from '@mui/material';
 
 import { Description } from '@mui/icons-material';
 
+import Cover from '../../components/device/Cover';
+import BinarySensor from '../../components/device/BinarySensor';
 import Sensor from '../../components/device/Sensor';
+import Select from '../../components/device/Select';
 import SwitchItem from '../../components/device/Switch';
+
 import ConfirmationDialogTextfield, {
     DialogTextfieldState,
     closedDialogTextfieldState,
@@ -229,6 +233,69 @@ function DevicePage() {
                                                             value={state}
                                                             action={handleSwitchAction}
                                                             renameAction={handleSwitchRenameAction}
+                                                        />
+                                                    );
+                                                })}
+                                            </List>
+                                        </Grid>
+                                    </>
+                                )}
+                                {device?.binarysensors !== undefined && state !== undefined && (
+                                    <>
+                                        <Grid item xs={12}>
+                                            <FormLabel>Home assistant binary sensors</FormLabel>{' '}
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <List dense={true}>
+                                                {Object.keys(device?.binarysensors).map((key, index) => {
+                                                    return (
+                                                        <BinarySensor
+                                                            key={key}
+                                                            item={device?.binarysensors[key]}
+                                                            value={state}
+                                                            renameAction={undefined}
+                                                        />
+                                                    );
+                                                })}
+                                            </List>
+                                        </Grid>
+                                    </>
+                                )}
+                                {device?.covers !== undefined && state !== undefined && (
+                                    <>
+                                        <Grid item xs={12}>
+                                            <FormLabel>Home assistant covers</FormLabel>{' '}
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <List dense={true}>
+                                                {Object.keys(device?.covers).map((key, index) => {
+                                                    return (
+                                                        <Cover
+                                                            key={key}
+                                                            item={device?.covers[key]}
+                                                            value={state}
+                                                            renameAction={undefined}
+                                                        />
+                                                    );
+                                                })}
+                                            </List>
+                                        </Grid>
+                                    </>
+                                )}
+                                {device?.selects !== undefined && state !== undefined && (
+                                    <>
+                                        <Grid item xs={12}>
+                                            <FormLabel>Home assistant selects</FormLabel>{' '}
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <List dense={true}>
+                                                {Object.keys(device?.selects).map((key, index) => {
+                                                    return (
+                                                        <Select
+                                                            key={key}
+                                                            item={device?.selects[key]}
+                                                            value={state}
+                                                            renameAction={undefined}
                                                         />
                                                     );
                                                 })}

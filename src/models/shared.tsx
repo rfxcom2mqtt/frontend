@@ -129,6 +129,41 @@ export class DeviceSwitch {
     ) {}
 }
 
+export class DeviceCover {
+    constructor(
+        public id: string = '',
+        public name: string = '',
+        public description: string = '',
+        public property: string = '',
+        public type: string = '',
+        public unit_of_measurement: string = '',
+        public icon = '',
+    ) {}
+}
+
+export class DeviceBinarySensor {
+    constructor(
+        public id: string = '',
+        public name: string = '',
+        public description: string = '',
+        public property: string = '',
+        public type: string = '',
+        public value_on: boolean = true,
+        public value_off: boolean = false,
+    ) {}
+}
+
+export class DeviceSelect {
+    constructor(
+        public id: string = '',
+        public name: string = '',
+        public description: string = '',
+        public property: string = '',
+        public type: string = '',
+        public options: string[] = [],
+    ) {}
+}
+
 export class DeviceInfo {
     manufacturer: string = 'Rfxcom';
     via_device: string = 'rfxcom2mqtt_bridge';
@@ -141,5 +176,8 @@ export class DeviceInfo {
     subTypeValue: string = '';
     entities: string[] = [];
     sensors: { [s: string]: DeviceSensor } = {};
+    binarysensors: { [s: string]: DeviceBinarySensor } = {};
+    selects: { [s: string]: DeviceSelect } = {};
+    covers: { [s: string]: DeviceCover } = {};
     switchs: { [s: string]: DeviceSwitch } = {};
 }
